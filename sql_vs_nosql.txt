@@ -1,0 +1,4 @@
+La différence qui existe entre une base de données relationnelle et une base de données non relationnelle est la façon de stocker.
+L’une stocke les données dans des tables tandis que l’autre les stockent au format clé-valeur de manière à stocker davantage en termes de quantité.
+Si vous envisagez une base de données où vous avez plus de lectures et moins d'écritures, un NoSQL peut être une bonne option.
+Si vous envisagez de créer une application avec plus d'écritures que de lectures, un SQL peut être la meilleure solution.

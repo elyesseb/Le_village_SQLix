@@ -1,0 +1,14 @@
+01- SELECT * FROM potion;
+02- SELECT `nom_categorie` FROM categorie WHERE `point_categorie` = 3;
+03- SELECT `nom_village` FROM village WHERE `huttes_village` BETWEEN 36 AND 55;
+04- SELECT `id_trophee` FROM trophee WHERE `date_prise` BETWEEN '2052-05-05 00:00:00' AND '2052-06-06 00:00:00';
+05- SELECT `nom_habitant` FROM habitant WHERE `nom_habitant` LIKE 'a%r%';
+06- SELECT DISTINCT `id_habitant` FROM absorber WHERE `id_potion` != 2 AND `id_potion` <= 4;
+07- SELECT id_trophee, date_prise, nom_categorie, nom_habitant FROM trophee INNER JOIN habitant ON trophee.id_habitant = habitant.id_habitant INNER JOIN categorie ON trophee.id_categorie = categorie.id_categorie;
+08- SELECT nom_habitant FROM habitant INNER JOIN village ON habitant.id_village = village.id_village WHERE nom_village = 'Aquilona';
+09- SELECT nom_habitant FROM trophee INNER JOIN habitant ON trophee.id_habitant = habitant.id_habitant INNER JOIN categorie ON trophee.id_categorie = categorie.id_categorie WHERE nom_categorie = 'Bouclier de Légat';
+10- SELECT lib_potion, formule_potion, constituant_potion FROM habitant INNER JOIN fabriquer ON fabriquer.id_habitant = habitant.id_habitant INNER JOIN potion ON potion.id_potion = fabriquer.id_potion WHERE nom_habitant = 'Panoramix';
+11- SELECT DISTINCT lib_potion FROM absorber INNER JOIN potion ON potion.id_potion = absorber.id_potion INNER JOIN habitant ON habitant.id_habitant = absorber.id_habitant WHERE nom_habitant = 'Homéopatix';
+
+
+    

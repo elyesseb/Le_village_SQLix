@@ -1,0 +1,1 @@
+mysqldump -u root -h localhost -p --databases db_sqlix > dump_db_sqlix.sql

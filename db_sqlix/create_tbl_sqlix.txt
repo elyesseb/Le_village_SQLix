@@ -1,0 +1,97 @@
+CREATE TABLE `province` (
+	`id_province` int NOT NULL AUTO_INCREMENT,
+	`nom_province` varchar(30) NOT NULL,
+	`gouverneur_province` varchar(30) NOT NULL,
+	PRIMARY KEY (`id_province`)
+);
+
+CREATE TABLE `village` (
+	`id_village` int NOT NULL AUTO_INCREMENT,
+	`nom_village` varchar(30) NOT NULL,
+	`huttes_village` int NOT NULL,
+	`id_province` int NOT NULL,
+	PRIMARY KEY (`id_village`)
+);
+
+CREATE TABLE `resserre` (
+	`id_resserre` int NOT NULL AUTO_INCREMENT,
+	`nom_resserre` varchar(30) NOT NULL,
+	`superficie_resserre` int NOT NULL,
+	`id_village` int NOT NULL,
+	PRIMARY KEY (`id_resserre`)
+);
+
+CREATE TABLE `trophee` (
+	`id_trophee` int NOT NULL AUTO_INCREMENT,
+	`date_prise` DATETIME NOT NULL,
+	`id_categorie` char(3) NOT NULL,
+	`id_resserre` int NOT NULL,
+	`id_habitant` int NOT NULL,
+	PRIMARY KEY (`id_trophee`)
+);
+
+CREATE TABLE `categorie` (
+	`id_categorie` char(3) NOT NULL,
+	`nom_categorie` varchar(50) NOT NULL,
+	`point_categorie` int NOT NULL,
+	PRIMARY KEY (`id_categorie`)
+);
+
+CREATE TABLE `habitant` (
+	`id_habitant` int NOT NULL AUTO_INCREMENT,
+	`nom_habitant` varchar(30) NOT NULL,
+	`age_habitant` int NOT NULL,
+	`id_village` int NOT NULL,
+	`id_qualite` int NULL,
+	PRIMARY KEY (`id_habitant`)
+);
+
+CREATE TABLE `qualite` (
+	`id_qualite` int NOT NULL AUTO_INCREMENT,
+	`lib_qualite` varchar(30) NOT NULL,
+	PRIMARY KEY (`id_qualite`)
+);
+
+CREATE TABLE `fabriquer` (
+	`id_habitant` int NOT NULL,
+	`id_potion` int NOT NULL,
+	PRIMARY KEY (`id_habitant`,`id_potion`)
+);
+
+CREATE TABLE `absorber` (
+	`id_absorber` DATETIME NOT NULL,
+	`id_habitant` int NOT NULL,
+	`id_potion` int NOT NULL,
+	`quantite_absorber` int NOT NULL,
+	PRIMARY KEY (`id_absorber`,`id_habitant`,`id_potion`)
+);
+
+CREATE TABLE `potion` (
+	`id_potion` int NOT NULL AUTO_INCREMENT,
+	`lib_potion` varchar(40) NULL,
+	`formule_potion` varchar(30) NULL,
+	`constituant_potion` varchar(30) NOT NULL,
+	PRIMARY KEY (`id_potion`)
+);
+
+ALTER TABLE `village` ADD CONSTRAINT `village_fk0` FOREIGN KEY (`id_province`) REFERENCES `province`(`id_province`);
+
+ALTER TABLE `resserre` ADD CONSTRAINT `resserre_fk0` FOREIGN KEY (`id_village`) REFERENCES `village`(`id_village`);
+
+ALTER TABLE `trophee` ADD CONSTRAINT `trophee_fk0` FOREIGN KEY (`id_categorie`) REFERENCES `categorie`(`id_categorie`);
+
+ALTER TABLE `trophee` ADD CONSTRAINT `trophee_fk1` FOREIGN KEY (`id_resserre`) REFERENCES `resserre`(`id_resserre`);
+
+ALTER TABLE `trophee` ADD CONSTRAINT `trophee_fk2` FOREIGN KEY (`id_habitant`) REFERENCES `habitant`(`id_habitant`);
+
+ALTER TABLE `habitant` ADD CONSTRAINT `habitant_fk0` FOREIGN KEY (`id_village`) REFERENCES `village`(`id_village`);
+
+ALTER TABLE `habitant` ADD CONSTRAINT `habitant_fk1` FOREIGN KEY (`id_qualite`) REFERENCES `qualite`(`id_qualite`);
+
+ALTER TABLE `fabriquer` ADD CONSTRAINT `fabriquer_fk0` FOREIGN KEY (`id_habitant`) REFERENCES `habitant`(`id_habitant`);
+
+ALTER TABLE `fabriquer` ADD CONSTRAINT `fabriquer_fk1` FOREIGN KEY (`id_potion`) REFERENCES `potion`(`id_potion`);
+
+ALTER TABLE `absorber` ADD CONSTRAINT `absorber_fk0` FOREIGN KEY (`id_habitant`) REFERENCES `habitant`(`id_habitant`);
+
+ALTER TABLE `absorber` ADD CONSTRAINT `absorber_fk1` FOREIGN KEY (`id_potion`) REFERENCES `potion`(`id_potion`);
